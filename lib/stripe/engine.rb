@@ -83,7 +83,9 @@ environment file directly.
       ActiveSupport.on_load :action_controller do
         # ActionController::API does not have a helper method
         if respond_to?(:helper)
-          helper Stripe::JavascriptHelper
+          Rails.application.reloader.to_prepare do
+            helper Stripe::JavascriptHelper
+          end
         end
       end
     end
